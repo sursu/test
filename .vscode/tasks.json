@@ -1,0 +1,60 @@
+
+    // // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // // for the documentation about the tasks.json format
+    // "version": "2.0.0",
+    // "tasks": [
+    //     {
+    //         "label": "build",
+    //         "type": "shell",
+    //         "command": "g++",
+    //         "args": [
+    //             "-g",
+    //             "-O3",
+    //             "main.cpp",
+    //             "-o",
+    //             "add.exe"
+    //         ],
+    //         "presentation": {
+    //             "reveal": "silent"
+    //         },
+    //         "group": {
+    //             "kind": "build",
+    //             "isDefault": true
+    //         }
+    //     }
+    // ]
+
+
+    {
+        "version": "2.0.0",
+        "options": {
+            "cwd": "${workspaceRoot}/build"
+        },
+        "tasks": [
+            {
+                "label": "cmake",
+                "type": "shell",
+                "command": "cmake",
+                "args": [
+                    "${workspaceRoot}",
+                    "-G",
+                    "MinGW Makefiles",
+                    "-DCMAKE_BUILD_TYPE=Debug .."
+                ],
+            },
+            {
+                "label": "make",
+                "type": "shell",
+                "command": "mingw32-make",
+                "args": [
+                    "-j",
+                    "8"
+                ],
+                "dependsOn":["cmake"],
+                "group": {
+                    "kind": "build",
+                    "isDefault": true
+                }
+            }
+        ]
+    }
